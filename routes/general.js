@@ -12,4 +12,12 @@ router.get('/register', (req, res) => {
   res.render('register');
 });
 
+router.get('/create', (req, res) => {
+  res.render('create');
+});
+
+router.post('/create', (req, res) => {
+  
+});
+
 module.exports = router;

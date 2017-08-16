@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Create Snippet</title>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href='/'>Home</a></li>
+        <li><a href='/login'>Login</a></li>
+        <li><a href='/register'>Register</a></li>
+        <li><a href='/create'>Create Snippet</a></li>
+      </ul>
+    </nav>
+
+    <h1>Create a Code Snippet</h1>
+    <form>
+      <div>
+        <label for='title'>Title: </label>
+        <input type'text' id='title'>
+      </div>
+      <div>
+        <label for='code'>Code: </label>
+        <textarea id='code' rows='10'></textarea>
+      </div>
+      <div>
+        <label for='language'>Language: </label>
+        <select name='language'>
+          <option value='JavaScript'>JavaScript</option>
+          <option value='HTML'>HTML</option>
+          <option value='CSS'>CSS</option>
+        </select>
+      </div>
+      <div>
+        <label for='notes'>Notes: </label>
+        <input id='notes' type='text'>
+      </div>
+      <div>
+        <label for='tags'>Tags: </label>
+        <input id='tags' type='text'>
+      </div>
+      <button type='submit'>Add New Snippet</button>
+    </form>
+
+  </body>
+</html>
