@@ -18,18 +18,24 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
-  console.log(req.body);
   let newSnippet = new Snippet(req.body);
 
   newSnippet
     .save()
     .then((results) => {
-      console.log(results);
       res.redirect('/');
     })
     .catch((err) => {
-      console.log(err);
       res.redirect('/');
+    });
+});
+
+router.get('/viewsnippets', (req, res) => {
+  Snippet
+    .find({})
+    .then((results) => {
+      console.log(results);
+      res.render('viewsnippets', {results});
     });
 });
 
