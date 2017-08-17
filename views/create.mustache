@@ -15,14 +15,14 @@
     </nav>
 
     <h1>Create a Code Snippet</h1>
-    <form>
+    <form action='/create' method='post'>
       <div>
         <label for='title'>Title: </label>
-        <input type'text' id='title'>
+        <input type'text' name='title' id='title'>
       </div>
       <div>
         <label for='code'>Code: </label>
-        <textarea id='code' rows='10'></textarea>
+        <textarea id='code' rows='10' name='code'></textarea>
       </div>
       <div>
         <label for='language'>Language: </label>
@@ -34,11 +34,11 @@
       </div>
       <div>
         <label for='notes'>Notes: </label>
-        <input id='notes' type='text'>
+        <input id='notes' name='notes' type='text'>
       </div>
       <div>
         <label for='tags'>Tags: </label>
-        <input id='tags' type='text'>
+        <input id='tags' name='tags' type='text'>
       </div>
       <button type='submit'>Add New Snippet</button>
     </form>

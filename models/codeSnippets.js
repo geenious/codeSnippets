@@ -13,7 +13,7 @@ let snippetSchema = mongoose.Schema({
   language: {
     type: String,
     required: true
-  }
+  },
   tags: String
 });
 
