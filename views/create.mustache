@@ -17,6 +17,7 @@
 
     <h1>Create a Code Snippet</h1>
     <form action='/create' method='post'>
+      <input type='hidden' name='userId' value='{{userId}}'>
       <div>
         <label for='title'>Title: </label>
         <input type'text' name='title' id='title'>

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 let snippetSchema = mongoose.Schema({
+  userId: String,
   title: {
     type: String,
     required: true

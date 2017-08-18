@@ -11,12 +11,11 @@ router.get('/', (req, res) => {
 });
 
 router.get('/create', authRequired, (req, res) => {
-  res.render('create');
+  res.render('create', { userId: req.user._id });
 });
 
 router.post('/create', (req, res) => {
   let newSnippet = new Snippet(req.body);
-
   newSnippet
     .save()
     .then((results) => {
