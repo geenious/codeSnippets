@@ -15,8 +15,6 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
-  console.log(req.body);
-
   const user = new User({ username: req.body.username, password: req.body.password });
   user.save((err) => {
     if (err) {

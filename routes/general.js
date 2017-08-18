@@ -27,7 +27,6 @@ router.get('/viewsnippets', (req, res) => {
   Snippet
     .find({})
     .then((results) => {
-      console.log(results);
       res.render('viewsnippets', {results});
     });
 });
