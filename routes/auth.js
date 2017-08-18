@@ -1,34 +1,80 @@
 const router = require('express').Router();
 const User = require('../models/users');
+const passport = require('passport');
 
 router.get('/login', (req, res) => {
-  res.render('login');
+
+  const flashMessages = res.locals.getMessages();
+  console.log('flash', flashMessages);
+
+  if (flashMessages.error) {
+    res.render('login', {
+      showErrors: true,
+      errors: flashMessages.error
+    });
+  } else {
+    res.render('login');
+  }
 });
 
-router.post('/login', (req, res) => {
-  User.authenticate(req.body.username, req.body.password, (err, user) => {
-    if (err || user === false) {
-      console.log('problem with login');
-      res.redirect('/login');
-    } else {
-      console.log('Successful login');
-      res.redirect('/viewsnippets');
-    }
-  });
-});
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/viewsnippets',
+  failureRedirect: '/login',
+  failureFlash: true
+}));
 
 router.get('/register', (req, res) => {
-  res.render('register');
+
+  const flashMessages = res.locals.getMessages();
+  console.log('flash', flashMessages);
+
+  if (flashMessages.error) {
+    res.render('register', {
+      showErrors: true,
+      errors: flashMessages.error
+    });
+  } else {
+    res.render('register');
+  }
 });
 
-router.post('/register', (req, res) => {
-  const user = new User({ username: req.body.username, password: req.body.password });
-  user.save((err) => {
-    if (err) {
-      console.log('error', err);
-    }
-    res.redirect('/viewsnippets');
-  });
+router.post('/register', (req, res, next) => {
+
+  req.checkBody('username', 'Username is required').notEmpty();
+  req.checkBody('password', 'Password is required').notEmpty();
+
+  req.getValidationResult()
+    .then((results) => {
+      if (results.isEmpty() === false) {
+        results.array().forEach((error) => {
+          req.flash('error', error.msg);
+        });
+        res.redirect('/register');
+      } else {
+        const user = new User({ username: req.body.username, password: req.body.password });
+        user.save((err) => {
+          if (err) {
+            if (err.message.indexOf('duplicate key error') > -1) {
+              req.flash('error', 'Username already exists');
+            } else {
+              req.flash('error', 'There was a problem with your registration');
+            }
+            res.redirect('/register');
+          } else {
+            next();
+          }
+        });
+      }
+    });
+
+
+}, passport.authenticate('local', {
+  successRedirect: '/viewsnippets'
+}));
+
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/login');
 });
 
 

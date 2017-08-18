@@ -20,6 +20,13 @@
         <input type='password' name='password' placeholder='Password'>
         <button type='submit'>register</button>
       </form>
+      {{#showErrors}}
+      <ul class='errors'>
+        {{#errors}}
+        <li>{{.}}</li>
+        {{/errors}}
+      </ul>
+      {{/showErrors}}
     </main>
   </body>
 </html>

@@ -1,12 +1,16 @@
 const router = require('express').Router();
 const Snippet = require('../models/codeSnippets');
 
+function authRequired(req, res, next) {
+  if (req.user) { next(); }
+  else { res.redirect('/login'); }
+}
 
 router.get('/', (req, res) => {
   res.render('index');
 });
 
-router.get('/create', (req, res) => {
+router.get('/create', authRequired, (req, res) => {
   res.render('create');
 });
 
@@ -23,11 +27,14 @@ router.post('/create', (req, res) => {
     });
 });
 
-router.get('/viewsnippets', (req, res) => {
+router.get('/viewsnippets', authRequired, (req, res) => {
   Snippet
     .find({})
     .then((results) => {
-      res.render('viewsnippets', {results});
+      res.render('viewsnippets', {
+        results,
+        username: req.user.username
+      });
     });
 });
 
