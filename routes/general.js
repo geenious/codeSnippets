@@ -27,8 +27,9 @@ router.post('/create', (req, res) => {
 });
 
 router.get('/viewsnippets', authRequired, (req, res) => {
+  console.log(req.user);
   Snippet
-    .find({})
+    .find({ userId: `${req.user._id}`})
     .then((results) => {
       res.render('viewsnippets', {
         results,
